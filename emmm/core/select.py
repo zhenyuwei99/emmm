@@ -1,5 +1,3 @@
-from emmm.core.adt import Item
-
 
 class select:
     """ A class stores operations to select and filter molecules

@@ -1,7 +1,6 @@
 # author: Roy Kid
 from emmm.core.item import Item
 
-
 class Atom(Item):
 
     id = 0
