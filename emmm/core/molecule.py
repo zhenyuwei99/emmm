@@ -1,9 +1,8 @@
 # author: Roy Kid
 
 from emmm.core.atom import Atom
-from emmm.core.adt import Item
-from emmm.core.operate import Bioperate, Unioperate
-
+from emmm.core.item import Item
+import numpy as np
 
 class Molecule(Item):
 
@@ -76,5 +75,17 @@ class Molecule(Item):
         dir.pop()
         return atoms
 
-    def rotate(self, theta, x, y, z, x0=0, y0=0, z0=0):
-        Unioperate.rotate(self, theta, x, y, z, x0, y0, z0)
+    def calc_centroid(self):
+        atoms = self.flatten()
+        vec = np.array([0,0,0], dtype=float)
+        for atom in atoms:
+            vec += atom.coords
+
+        centroid = vec/len(atoms)
+        setattr(self, 'coords', centroid)
+
+    @property
+    def coords(self):
+        if not hasattr(self, 'coords'):
+            self.calc_centroid()
+        return self.coords

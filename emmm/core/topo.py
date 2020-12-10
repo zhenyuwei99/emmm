@@ -1,7 +1,6 @@
 # author: Roy Kids
 from emmm.core.molecule import Molecule
 from emmm.core.atom import Atom
-from emmm.core.item import Item
 
 class Topo:
     """ A class to search topological structure for the passed molecules; instanciated by the World class
