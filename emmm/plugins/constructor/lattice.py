@@ -18,7 +18,7 @@ class Lattice(Constructor):
         lattice = Molecule('%s_%d' %(self.name, 0))
         for i in range(self.atom_relative_coord.shape[0]):
             coord = self.cell_vec.dot(self.atom_relative_coord[i, :])
-            lattice.add_item(Creator.create_coord_atom('%s_atom_%d' %(self.name, i), coord))
+            lattice.add_item(Create.create_coord_atom('%s_atom_%d' %(self.name, i), coord))
         self.mol.add_item(lattice)
         self.mol.label = self.name
 
