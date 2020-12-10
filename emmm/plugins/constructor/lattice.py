@@ -3,10 +3,10 @@
 # This file will contain the constructors for the basic
 #  lattcie structure like sc, bcc, fcc, dc, etc
 
-from src.creator import Creator
-from src.atom import Atom
-from src.molecule import Molecule
-from plugins.constructor.constructor import Constructor
+from emmm.core.create import Create
+from emmm.core.atom import Atom
+from emmm.core.molecule import Molecule
+from emmm.plugins.constructor.constructor import Constructor
 import numpy as np
 
 class Lattice(Constructor):
