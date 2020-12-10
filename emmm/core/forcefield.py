@@ -14,4 +14,4 @@ class ForceField:
         self.system['atom_style'] = atom_style
 
     def add_bond_coeff(self, a1, a2, *coeffs):
-        self.system['bond_coeff'].append([a1, a2, *coeffs]
+        self.system['bond_coeff'].append([a1, a2, *coeffs])
