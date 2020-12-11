@@ -1,7 +1,7 @@
 # author: Roy Kid
 
 
-class Constructor:
+class PrecastBase:
 
     def __init__(self, world) -> None:
         self.world = world

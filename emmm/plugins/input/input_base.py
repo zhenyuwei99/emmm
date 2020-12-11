@@ -11,7 +11,7 @@ class InputBase:
         self.world = world
         self.system = world.system
 
-    def group_by(self, atoms:list, reference:str='molLabel', returnType:str='Molecule'):
+    def group_by(self, atoms:list, reference:str='molLabel', returnType:str='dict'):
         """ Util method to group atoms by a certain reference. For example, you can group them by the molLable, which means those atoms in a same molecule. 
 
         Args:

@@ -18,7 +18,7 @@ class Molecule(Item):
     @property
     def coords(self):
         if not hasattr(self, 'coords'):
-            Unioperate.calc_centroid(self)
+            self.calc_centroid(self)
         return self.coords
 
     def __repr__(self) -> str:

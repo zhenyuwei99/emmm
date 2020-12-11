@@ -9,7 +9,7 @@ class Topo:
         self.world = world
         self.system = world.system
         
-        self.system['topoBonds'] = list()
+        self.system['topoBond'] = list()
         self.system['topoAngle'] = list()
         self.system['topoDihedral'] = list()
 

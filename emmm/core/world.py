@@ -8,7 +8,7 @@ from emmm.core.molecule import Molecule
 
 class World:
 
-    def __init__(self):
+    def __init__(self, unit):
 
         # self.forcefield = ForceField()
 

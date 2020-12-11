@@ -1,7 +1,10 @@
 #author: Roy Kid
 
-from emmm.plugins.input.input_base import InputBase
 from emmm.core.create import Create
+from emmm.plugins.input.input_base import InputBase
+
+
+
 class INlmpdat(InputBase):
 
     def __init__(self, world):
@@ -30,7 +33,7 @@ class INlmpdat(InputBase):
 
     def read_data(self, file, atom_style='full'):
 
-        self.file_name = sys.path[0]+'/'+file
+        self.file_name = file
 
         self.file = open(self.file_name)
 
@@ -88,9 +91,10 @@ class INlmpdat(InputBase):
             'xhi':'xhi',
             'yhi':'yhi',
             'zhi':'zhi',
+            'Masses': 'masses',
             'atom_style':'atomStyle',
             'Atoms':'atoms',
-            'atoms':'atomsNum',
+            'atoms':'atomNum',
             'atom types':'atomTypeNum',
             'Bonds':'bonds',
             'bonds':'bondNum',
@@ -110,7 +114,7 @@ class INlmpdat(InputBase):
             self.system[temp2sys[k]] = v
 
 
-        atoms = Creator.create_atoms(self.temp_system['atom_style'], self.temp_system['Atoms'], returnType='list')
+        atoms = Create.create_atoms(self.temp_system['atom_style'], self.temp_system['Atoms'], returnType='list')
 
         # add topo
         for b in self.temp_system['Bonds']:
@@ -130,7 +134,7 @@ class INlmpdat(InputBase):
                 raise ValueError('')
             catom.add_neighbors(patom)
         
-        mol = self.group_by(atoms, reference='label')
+        mol = self.group_by(atoms, reference='parent')
         self.world.molecules.add_items(mol.values())
 
         return mol

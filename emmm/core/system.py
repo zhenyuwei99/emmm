@@ -2,7 +2,7 @@
 
 class System(dict):
 
-    def __init__(self):
+    def __init__(self, world):
         # self.world = world
         self.limitedKeys = [
             'unit',
@@ -14,9 +14,10 @@ class System(dict):
             'zhi', 
             'boundaryX', 
             'boundaryY',
-            'boundaryZ', 
+            'boundaryZ',
+            'masses', 
             'atoms', # raw info of each atom
-            'atomsNum', # the number of atoms 
+            'atomNum', # the number of atoms 
             'atomStyle', 
             'atomTypeNum',
             'bonds',
@@ -39,9 +40,9 @@ class System(dict):
             'improperStyle',
             'improperTypeNum', 
             'improperCoeffs',
-            'topoBonds', 
-            'topoAngles', 
-            'topoDihedrals',
+            'topoBond', 
+            'topoAngle', 
+            'topoDihedral',
         ]
 
     def check_system(self):
@@ -52,7 +53,7 @@ class System(dict):
 
     def __setitem__(self, k, v):
         if k not in self.limitedKeys:
-            raise KeyError('System has no %s keyword', k)
+            raise KeyError('System has no %s keyword'% k)
         
         if k == 'xlo' or k == 'xhi' or k=='ylo' or k=='yhi' or k=='zlo' or k=='zhi':
             v = float(v)

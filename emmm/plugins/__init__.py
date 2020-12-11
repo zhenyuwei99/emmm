@@ -4,8 +4,7 @@ import pkgutil, os
 import inspect
 from emmm.plugins.input.input_base import InputBase
 from emmm.plugins.output.output_base import OutputBase
-from emmm.plugins.constructor.constructor import Constructor
-
+from emmm.plugins.precast.precast_base import PrecastBase
 
 class PluginManager:
 
@@ -28,7 +27,7 @@ class PluginManager:
             'Constructor'
         ]
 
-        self.plugin_package = 'plugins'
+        self.plugin_package = 'emmm.plugins'
         
         self.reload_plugins()
 
@@ -54,8 +53,8 @@ class PluginManager:
                     
 
                 for (_, c) in clsMembers:
-                    if issubclass(c, (InputBase, OutputBase, Constructor)):
-                        if c is not InputBase and c is not OutputBase and c is not Constructor: 
+                    if issubclass(c, (InputBase, OutputBase, PrecastBase)):
+                        if c is not InputBase and c is not OutputBase and c is not PrecastBase: 
                         
                             print(f'找到插件类：{c.__module__}. {c.__name__}')
                             self.plugins[c.__name__] = c
