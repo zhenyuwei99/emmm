@@ -15,6 +15,10 @@ filepath = os.path.dirname(__file__)+'/'+'h2o.lmpdat'
 
 h2os = InputBase.read_data(filepath)
 
-OutputBase = world.active_plugin('OUTlmpdat')
 
-OutputBase.dump_data('testh2o')
+print(h2os.toDict())
+
+# OutputBase = world.active_plugin('OUTjson')
+
+# OutputBase.vis()
+# world.vis()

@@ -28,15 +28,15 @@ class Molecule(Item):
         return self
 
     def add_items(self, *items):
+        """ add a set of item to the molecule. NOTE: if you want to pass a list or tuple you should use *listOfItem to unpack it. 
+        """
         for item in items:
             if isinstance(item, Atom):
                 item.parent = self.label
                 self.append(item)
 
-            elif isinstance(item, list):
-                self.add_items(*item)
-
             elif isinstance(item, Molecule):
+                item.parent = self.label
                 self.append(item)
 
     def __getitem__(self, label):
@@ -89,3 +89,15 @@ class Molecule(Item):
         if not hasattr(self, 'coords'):
             self.calc_centroid()
         return self.coords
+    
+    def toDict(self):
+        m = dict()
+        m['label'] = self.label
+        m['type'] = self.type
+        m['parent'] = self.parent
+        m['path'] = self.path
+        m['items'] = list()
+        for i in self.container:
+            m['items'].append(i.toDict())
+
+        return m

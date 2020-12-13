@@ -11,7 +11,7 @@ class OUTlmpdat(OutputBase):
         fname = file
         with open(fname, 'w') as f:
 
-            s = self.system
+            s = self.world
             w = f.write
             
             # comment line

@@ -7,11 +7,10 @@ class Topo:
     """
     def __init__(self, world) -> None:
         self.world = world
-        self.system = world.system
         
-        self.system['topoBond'] = list()
-        self.system['topoAngle'] = list()
-        self.system['topoDihedral'] = list()
+        self.world['topoBond'] = list()
+        self.world['topoAngle'] = list()
+        self.world['topoDihedral'] = list()
 
     def search_topo(self, item, isBond=True, isAngle=True, isDihedral=True):
         """to search the topological structure for the passed molecules.
@@ -32,11 +31,11 @@ class Topo:
         
         self.forcefield = self.world.forcefield
         if isBond:
-            self.system['topoBonds'].extend(self.search_bond(self.atoms))
+            self.world['topoBond'].extend(self.search_bond(self.atoms))
         if isAngle:
-            self.system['topoAngle'].extend(self.search_angle(self.atoms))
+            self.world['topoAngle'].extend(self.search_angle(self.atoms))
         if isDihedral:
-            self.system['topoDihedral'].extend(self.search_dihedral(self.atoms))
+            self.world['topoDihedral'].extend(self.search_dihedral(self.atoms))
 
     def search_bond(self, atoms):
 
@@ -106,14 +105,25 @@ class Topo:
     def match_atoms(self, atoms1:list, atoms2:list)->bool: 
         return sorted(atoms1) == sorted(atoms2)
 
-    def gen_bond(self, source_bonds, bond_coeff):
+    def gen_bond(self):
+        """ match [Atom1, Atom2] with forcefield to get bond type; then convert it to [type, label1, label] in str.
 
+        Args:
+            source_bonds ([type]): [description]
+            bond_coeff ([type]): [description]
+        """
+        source_bonds = self.world['topoBond']
         dest_bonds = list()
 
+        # for bond in source_bonds:
+        #     atoms1 = [bond[0].label, bond[1].label]
+        #     for b_coeff in bond_coeff:
+        #         atoms2 = [b_coeff[0], b_coeff[1]]
+        #         if self.match_atoms(atoms1, atoms2):
+        #             dest_bonds.append([b_coeff[0], *atoms1])
+
         for bond in source_bonds:
-            atoms1 = [bond[0].label, bond[1].label]
-            for b_coeff in bond_coeff:
-                atoms2 = [b_coeff[0], b_coeff[1]]
-                if self.match_atoms(atoms1, atoms2):
-                    dest_bonds.append([b_coeff[0], *atoms1])
+            dest_bonds.append([1, bond[0].label, bond[1].label])
+
+        return dest_bonds
     

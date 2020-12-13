@@ -2,15 +2,48 @@
 from copy import copy, deepcopy
 import numpy as np 
 
-class Item(list):
+class Item:
 
     def __init__(self, label=None, type=None, parent=None, path=None):
-        super().__init__()
 
         self.label = label
         self.type = type
         self.parent = parent
         self.path = path
+
+        self.container = list()
+        self._pos = 0
+
+    def __lt__(self, o):
+        return self.label < o.label
+
+    def __eq__(self, o):
+        return self.label == o.label
+
+    def __iter__(self):
+        return iter(self.container)
+    
+    def __next__(self):
+        try:
+            n = self.container[self._pos]
+            self._pos+=1
+        except IndexError:
+            raise StopIteration
+        return n
+
+    def __getitem__(self, v):
+        for i in self.container:
+            if i.label == v:
+                return i
+
+    def append(self, o):
+        self.container.append(o)
+
+    def pop(self):
+        return self.container.pop()
+
+    def ls(self):
+        print(self.container)
 
     @property
     def id(self):
@@ -29,32 +62,25 @@ class Item(list):
         else:
             raise TypeError("type of coords is error")
 
-        self._x = self._coords[0]
-        self._y = self._coords[1]
-        self._z = self._coords[2]
-
     @property
     def x(self):
-        return self._x
+        return float(self._coords[0])
     @x.setter
     def x(self, x):
-        self._x = np.float64(x)
         self._coords[0] = x
 
     @property
     def y(self):
-        return self._y
+        return float(self._coords[1])
     @y.setter
     def y(self, y):
-        self._y = np.float64(y)
         self._coords[1] = y
     
     @property
     def z(self):
-        return self.z
+        return float(self._coords[2])
     @z.setter
     def z(self, z):
-        self._z = np.float64(z)
         self._coords[2] = z
 
     def move(self, x, y, z):
@@ -185,3 +211,7 @@ class Item(list):
 
         # can not use the deepcope to duplicate a new item, because the id can not be change
         pass
+    
+    @property
+    def ls(self):
+        print(self.container)
