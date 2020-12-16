@@ -13,6 +13,7 @@ class Item:
 
         self.container = list()
         self._pos = 0
+        self._coords = [0, 0, 0]
 
     def __lt__(self, o):
         return self.label < o.label
