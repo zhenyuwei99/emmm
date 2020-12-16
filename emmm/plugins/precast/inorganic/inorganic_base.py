@@ -13,7 +13,7 @@ class InorganicBase(PrecastBase):
             mol_new.move(move_vec[0]*i, move_vec[1]*i, move_vec[2]*i)
             for mol in mol_new.container:
                 mol.label = '%s_%d' %(self.name, len(self.mol.container))
-                self.mol.add_item(mol)
+                self.mol.add_items(mol)
 
     def _input_complete(self):
         self._generateLattice()
