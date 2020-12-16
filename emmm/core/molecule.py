@@ -2,8 +2,8 @@
 
 from emmm.core.atom import Atom
 from emmm.core.item import Item
+from copy import deepcopy
 import numpy as np
-
 class Molecule(Item):
 
     id = 0

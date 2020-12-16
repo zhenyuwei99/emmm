@@ -70,3 +70,14 @@ class Create:
         
         else:
             raise TypeError(' ')
+
+    @staticmethod
+    def create_atom_from_coord(atomLabel, coord):
+        atomLabel = str(atomLabel)
+        x = float(coord[0])
+        y = float(coord[1])
+        z = float(coord[2])
+        return Create._create_atom(label = atomLabel, 
+                                    x = x, 
+                                    y = y,
+                                    z = z)
