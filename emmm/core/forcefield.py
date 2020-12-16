@@ -3,15 +3,28 @@ class ForceField:
     def __init__(self, world):
         
         self.world = world
-        self.system = world.system
-        self.system['bond_coeff'] = list()
-        
 
-    def add_bond_style(self, bond_style):
-        self.system['bond_style'] = bond_style
+    def set_bond_coeffs(self, style, item1, item2, *coeffs):
+        self.world['bondStyle'] = style
+        self.world.setdefault('bondCoeffs', list).append([str(item1), str(item2), *map(str,coeffs)])
 
-    def add_atom_style(self, atom_style):
-        self.system['atom_style'] = atom_style
+    def set_angle_coeffs(self, style, item1, item2, item3, *coeffs):
+        self.world['angleStyle'] = style
+        self.world['angleCoeffs'] = [str(item1), str(item2), str(item3), *map(str,coeffs)]
 
-    def add_bond_coeff(self, a1, a2, *coeffs):
-        self.system['bond_coeff'].append([a1, a2, *coeffs])
+    def set_dihedral_coeff(self, style, item1, item2, item3, item4, *coeffs):
+        self.world['dihedralStyle'] = style
+        self.world['dihedralCoeffs'] = [str(item1), str(item2), str(item3), str(item4), *map(str, coeffs)]
+
+    def _match_items(self, items1:list, items2:list)->bool:
+        if sorted(items1) == sorted(items2):
+            return True
+        else:
+            return False
+
+    def match_bond(self, item1, item2):
+        for coeff in self.world['bondCoeffs']:
+            if self._match_items([item1, item2], coeff[:2]):
+                return (self.world['bondStyle'], coeff[2:])
+
+                

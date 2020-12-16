@@ -24,8 +24,8 @@ class Create:
         y = float(y)
         z = float(z)
 
-        return Create._create_atom( atomlabel=atomLabel,\
-                                    mollabel = molLabel,\
+        return Create._create_atom( label= atomLabel,\
+                                    parent = molLabel,\
                                     type = type,\
                                     q = q,\
                                     coords = np.array([x,y,z]),

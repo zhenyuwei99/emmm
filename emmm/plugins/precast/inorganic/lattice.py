@@ -6,15 +6,20 @@
 from emmm.core.create import Create
 from emmm.core.atom import Atom
 from emmm.core.molecule import Molecule
+<<<<<<< HEAD:emmm/plugins/constructor/lattice.py
 from emmm.plugins.constructor.constructor import Constructor
+=======
+from emmm.plugins.precast.precast_base import PrecastBase
+>>>>>>> zhenyuwei:emmm/plugins/precast/inorganic/lattice.py
 import numpy as np
 
-class Lattice(Constructor):
+class Lattice(PrecastBase):
     def __init__(self, world):
         super().__init__(world)
-        self.mol = Molecule('lattice')
+        self.mol = Molecule('Lattice')
     
     def _generateLattice(self):
+        9562
         lattice = Molecule('%s_%d' %(self.name, 0))
         for i in range(self.atom_relative_coord.shape[0]):
             coord = self.cell_vec.dot(self.atom_relative_coord[i, :])

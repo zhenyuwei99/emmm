@@ -1,7 +1,10 @@
 #author: Roy Kid
 
-from emmm.plugins.input.input_base import InputBase
 from emmm.core.create import Create
+from . import InputBase
+
+
+
 class INlmpdat(InputBase):
 
     def __init__(self, world):
@@ -30,7 +33,7 @@ class INlmpdat(InputBase):
 
     def read_data(self, file, atom_style='full'):
 
-        self.file_name = sys.path[0]+'/'+file
+        self.file_name = file
 
         self.file = open(self.file_name)
 
@@ -71,7 +74,7 @@ class INlmpdat(InputBase):
         self.file.close()
         if len(self.temp_system['Atoms'][0]) == 7:
             self.temp_system['atom_style'] = 'full'
-            print(self.temp_system['atom_style'])
+
 
         elif 'atom_style' not in self.temp_system:
             self.temp_system['atom_style'] = input('> enter atom style')
@@ -88,9 +91,10 @@ class INlmpdat(InputBase):
             'xhi':'xhi',
             'yhi':'yhi',
             'zhi':'zhi',
+            'Masses': 'masses',
             'atom_style':'atomStyle',
             'Atoms':'atoms',
-            'atoms':'atomsNum',
+            'atoms':'atomNum',
             'atom types':'atomTypeNum',
             'Bonds':'bonds',
             'bonds':'bondNum',
@@ -107,10 +111,10 @@ class INlmpdat(InputBase):
         }
 
         for k,v in self.temp_system.items():
-            self.system[temp2sys[k]] = v
+            self.world[temp2sys[k]] = v
 
 
-        atoms = Creator.create_atoms(self.temp_system['atom_style'], self.temp_system['Atoms'], returnType='list')
+        atoms = Create.create_atoms(self.temp_system['atom_style'], self.temp_system['Atoms'], returnType='list')
 
         # add topo
         for b in self.temp_system['Bonds']:
@@ -130,8 +134,10 @@ class INlmpdat(InputBase):
                 raise ValueError('')
             catom.add_neighbors(patom)
         
-        mol = self.group_by(atoms, reference='label')
-        self.world.molecules.add_items(mol.values())
+        mol = self.group_by('lmpdat', atoms, reference='parent')
+        # print(mol, mol.values())
+        # defaultdict(<class 'emmm.core.molecule.Molecule'>, {'1': < molecule: 1 in None>, '2': < molecule: 2 in None>, '3': < molecule: 3 in None>}) dict_values([< molecule: 1 in None>, < molecule: 2 in None>, < molecule: 3 in None>])
+        self.world.items.add_items(mol)
 
         return mol
 

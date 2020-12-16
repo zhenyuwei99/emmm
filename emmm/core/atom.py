@@ -30,4 +30,18 @@ class Atom(Item):
             else:
                 raise TypeError(f'"{type(atom)}"" is not an Atom class')       
 
-    
+    def toDict(self):
+        """ convert atom to dict
+
+        Returns:
+            dict
+        """
+        a = dict()
+        a['label'] = self.label
+        a['type'] = self.type
+        a['parent'] = self.parent
+        a['path'] = self.path
+        a['x'] = self.x
+        a['y'] = self.y
+        a['z'] = self.z
+        return a 
