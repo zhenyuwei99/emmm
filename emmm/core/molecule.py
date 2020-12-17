@@ -39,16 +39,6 @@ class Molecule(Item):
                 item.parent = self.label
                 self.append(item)
 
-    def __getitem__(self, label):
-
-        if isinstance(label, str):
-            for item in self:
-                if item.label == label:
-                    return item
-            
-        elif isinstance(label, slice):
-            raise TypeError('Not support slice yet')
-
    # def rm_item(self, label):
     
     def flatten(self, dir=None, isSelf=False):
