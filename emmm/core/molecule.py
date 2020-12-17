@@ -101,3 +101,11 @@ class Molecule(Item):
             m['items'].append(i.toDict())
 
         return m
+
+    def get_replica(self, newLabal):
+        
+        newMol = Molecule(newLabal)
+        for k,v in self.__dict__.items():
+            newMol[k] = v
+
+        return newMol

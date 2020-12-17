@@ -1,5 +1,5 @@
 # author: Roy Kid
-from copy import copy, deepcopy
+
 import numpy as np 
 
 class Item:
@@ -207,11 +207,16 @@ class Item:
 
         return dist
 
-    def get_replica(self, newLabal):
-
-        # can not use the deepcope to duplicate a new item, because the id can not be change
-        pass
-    
     @property
     def ls(self):
         print(self.container)
+
+    def get_replica(self, newLabal):
+        pass
+    
+
+    def compute_bounding_box(self):
+        pass
+
+    def compute_bounding_sphere(self):
+        pass
