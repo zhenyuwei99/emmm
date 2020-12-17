@@ -50,7 +50,6 @@ class World:
             'topoAngle', 
             'topoDihedral',
             'forcefield',
-        
         ]
 
         self._world = dict()

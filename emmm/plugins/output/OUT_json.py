@@ -1,6 +1,6 @@
 # author: Roy Kid
 from emmm.core.molecule import Molecule
-from emmm.plugins.output.output_base import OutputBase
+from . import OutputBase
 import json
 import eel
 

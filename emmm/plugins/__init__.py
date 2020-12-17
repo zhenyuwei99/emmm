@@ -2,9 +2,12 @@
 
 import pkgutil, os
 import inspect
-from emmm.plugins.input.input_base import InputBase
-from emmm.plugins.output.output_base import OutputBase
-from emmm.plugins.precast.precast_base import PrecastBase
+from .input.input_base import InputBase
+from .output.output_base import OutputBase
+from .precast.precast_base import PrecastBase
+from . import input
+from . import output
+from . import precast
 
 class PluginManager:
 
