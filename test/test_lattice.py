@@ -6,5 +6,7 @@ import emmm
 
 world = emmm.World('real')
 
+mol = emmm.core.molecule.Molecule
+
 lattice = emmm.plugins.precast.inorganic.Lattice(world)
 lattice.bcc(1, 2, 2, 2)

@@ -33,9 +33,19 @@ class Item:
         return n
 
     def __getitem__(self, v):
-        for i in self.container:
-            if i.label == v:
-                return i
+        # for i in self.container:
+        #     if i.label == v:
+        #         return i
+        if isinstance(v, str):
+            for item in self:
+                if item.label == v:
+                    return item
+            
+        elif isinstance(v, slice):
+            raise TypeError('Not support slice yet')
+    
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
 
     def append(self, o):
         self.container.append(o)
