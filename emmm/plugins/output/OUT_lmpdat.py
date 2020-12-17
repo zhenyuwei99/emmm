@@ -1,5 +1,5 @@
 # author: Roy Kid
-from emmm.plugins.output.output_base import OutputBase
+from . import OutputBase
 import sys
 
 class OUTlmpdat(OutputBase):

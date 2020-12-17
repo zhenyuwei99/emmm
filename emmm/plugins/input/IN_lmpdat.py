@@ -1,7 +1,7 @@
 #author: Roy Kid
 
 from emmm.core.create import Create
-from emmm.plugins.input.input_base import InputBase
+from . import InputBase
 
 
 

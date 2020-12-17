@@ -9,16 +9,8 @@ import emmm as em
 
 world = em.World('real')
 
-InputBase = world.active_plugin('INlmpdat')
-                     
-filepath = os.path.dirname(__file__)+'/'+'h2o.lmpdat'
+sio2 = em.plugins.precast.inorganic.SiO2(world)
 
-h2os = InputBase.read_data(filepath)
-
-
-print(h2os.toDict())
-
-# OutputBase = world.active_plugin('OUTjson')
 
 # OutputBase.vis()
 # world.vis()
