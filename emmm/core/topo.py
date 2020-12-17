@@ -112,18 +112,16 @@ class Topo:
             source_bonds ([type]): [description]
             bond_coeff ([type]): [description]
         """
-        source_bonds = self.world['topoBond']
-        dest_bonds = list()
+        raw_bonds = self.world['topoBond']
+        typed_bonds = list()
 
-        # for bond in source_bonds:
-        #     atoms1 = [bond[0].label, bond[1].label]
-        #     for b_coeff in bond_coeff:
-        #         atoms2 = [b_coeff[0], b_coeff[1]]
-        #         if self.match_atoms(atoms1, atoms2):
-        #             dest_bonds.append([b_coeff[0], *atoms1])
 
-        for bond in source_bonds:
-            dest_bonds.append([1, bond[0].label, bond[1].label])
+        for bond in raw_bonds:
 
-        return dest_bonds
+            # bondinfo = [bondStyle, coeff1, coeff2]
+            bondinfo = self.world.forcefield.match_bond(*bond)
+            typed_bonds.append([*bondinfo, *bond])
+
+
+        return typed_bonds
     
