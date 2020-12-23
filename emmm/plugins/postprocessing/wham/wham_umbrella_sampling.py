@@ -1,7 +1,7 @@
 '''
 Author: Zhenyu Wei
 Date: 2020-12-23 13:44:22
-LastEditTime: 2020-12-23 17:38:15
+LastEditTime: 2020-12-23 18:31:37
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /postprocessing/WHAM/codes/wham_umbrella_sampling.py
@@ -13,6 +13,21 @@ from copy import copy
 from . import WHAMBase
 
 class WHAMUmbrellaSampling(WHAMBase):
+    """ A Weighted Histogram Analysis Method analyser for umbrella sampling results.
+    Example:
+        ```python
+            analyser = WHAMUmbrellaSampling()
+            analyser.setDirPath('/Users/zhenyuwei/Simulation_Data/postprocessing/WHAM/data')
+            analyser.setFileIdRangeFromStartToEnd(1, 199)
+            analyser.setBinRangeFromStartToEnd(1, 25, 250)
+            analyser.setConstantK(100)
+            analyser.setTemperature(300)
+            analyser.loadData()
+
+            # analyser.iterativeSolver(tolerance=0.1)
+            analyser.iterativeSolver(num_steps=10000)
+        ```
+    """
     def __init__(self):
         super(WHAMUmbrellaSampling, self).__init__()
 
@@ -24,9 +39,14 @@ class WHAMUmbrellaSampling(WHAMBase):
             raise AttributeError('`k` should be defined by .setConstantK()')
 
     def setConstantK(self, k) -> None:
+        """ Set the elastic constant for the harmonic bias potential
+        Unit: Energy / Length^2
+        """
         self.k = k
 
     def biasingFactor(self, coord, origin):
+        """ Return a bias energy with given origin
+        """
         return np.exp(- 0.5 * self.k * (coord-origin)**2 / self.kbt)
 
     def loadData(self) -> None:
@@ -54,6 +74,14 @@ class WHAMUmbrellaSampling(WHAMBase):
         self.p = np.zeros([self.num_bins, 1]) # p is the probability distribution
         
     def iterativeSolver(self, num_steps=None, tolerance=None, max_steps=20000) -> None:
+        """ Solver of the WHAM equations with iterative paradigm.
+        Keywords:
+            - num_steps: the number of iteration steps,
+            - tolerance: the error tolerance of p
+            - max_steps: used with `tolerance` to avoid too much iterative
+        Note:
+            - One and only one of `num_steps` and `tolerace` should be specified
+        """
         if num_steps == None and tolerance == None:
             raise KeyError('One of `num_steps` or `tolerance` should be specified')
         elif num_steps != None and tolerance != None:

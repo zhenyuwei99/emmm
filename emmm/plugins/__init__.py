@@ -8,6 +8,7 @@ from .precast.precast_base import PrecastBase
 from . import input
 from . import output
 from . import precast
+from . import postprocessing
 
 class PluginManager:
 
