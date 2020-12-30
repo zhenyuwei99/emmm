@@ -148,10 +148,11 @@ class WHAMBase(object):
         with open(file_name, 'r') as io:
             for line in io:
                 data.append(self._parseLine(line))
-        try:
-            return np.array(data)
-        except:
-            return data
+        #try:
+        #    return np.array(data)
+        #except:
+        #    return data
+        return data
     
     def _setHistograms(self) -> None:
         """ Set h_i(xi_j)

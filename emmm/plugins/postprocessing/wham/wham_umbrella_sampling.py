@@ -88,14 +88,18 @@ class WHAMUmbrellaSampling(WHAMBase):
             raise KeyError('Only one keyword should be specified')
         else:
             self._setComplete()
+            self.p_loss = []
+            self.f_loss = []
             if num_steps != None:
                 f_temp = copy(self.f)
                 p_temp = copy(self.p)
                 for _ in range(num_steps):
                     p_nominator = self.histograms.sum(0)
-                    p_denominator = (self.bias_factor * self.num_samples[:, np.newaxis] * self.f[:, np.newaxis]).sum(0) + 0.000001
+                    p_denominator = (self.bias_factor * self.num_samples[:, np.newaxis] * self.f[:, np.newaxis]).sum(0) + 1e-8
                     p_temp = p_nominator / p_denominator
+                    self.p_loss.append((p_temp - self.p).sum())
                     self.p = p_temp
+                    self.f_loss.append((f_temp - self.f).sum())
                     f_temp = (self.bias_factor * self.p).sum(1)
                     self.f = f_temp
             else:
@@ -106,7 +110,7 @@ class WHAMUmbrellaSampling(WHAMBase):
                     total_step += 1
                     self.p = p_temp
                     p_nominator = self.histograms.sum(0)
-                    p_denominator = (self.bias_factor * self.num_samples[:, np.newaxis] * f_temp[:, np.newaxis]).sum(0) + 0.000001
+                    p_denominator = (self.bias_factor * self.num_samples[:, np.newaxis] * f_temp[:, np.newaxis]).sum(0) + 1e-8
                     p_temp = p_nominator / p_denominator
                     self.f = f_temp
                     f_temp = (self.bias_factor * p_temp).sum(1)
